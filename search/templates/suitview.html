@@ -1,0 +1,95 @@
+
+<div class="siimple-modal-content">
+    <div class="siimple-modal-header">
+        <div class="siimple-modal-header-title">Costume {{ suit.id }}</div>
+        <div class="siimple-modal-header-close" id="modal-close" onclick='document.getElementById("modal").style.display = "none";'></div>
+    </div>
+    <div class="siimple-modal-body heightmax">
+        <div class="siimple-grid">
+            <div class="siimple-grid-row">
+                <div class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td><label class="siimple-label">Lieu:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.location }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Portant:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.portant }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Epoque:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.epoque }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Genre:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.gender }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Taille:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.size }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Couleur:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.color }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Etat:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.state }}" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><label class="siimple-label">Disponibilité:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}" disabled></td>
+                        </tr>
+                        {% if suit.bas != "" %}
+                        <tr>
+                            <td><label class="siimple-label">Bas:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.bas }}" disabled></td>
+                        </tr>
+                        {% endif %}
+                        {% if suit.haut != "" %}
+                        <tr>
+                            <td><label class="siimple-label">Haut:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.haut }}" disabled></td>
+                        </tr>
+                        {% endif %}
+                        {% if suit.robe != "" %}
+                        <tr>
+                            <td><label class="siimple-label">Robe:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.robe }}" disabled></td>
+                        </tr>
+                        {% endif %}
+                        {% if suit.ensemble != "" %}
+                        <tr>
+                            <td><label class="siimple-label">Ensemble:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.ensemble }}" disabled></td>
+                        </tr>
+                        {% endif %}
+                        {% if suit.accessoire != "" %}
+                        <tr>
+                            <td><label class="siimple-label">Accessoire:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.accessoire }}" disabled></td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td><label class="siimple-label">Description: </label></td>
+                            <td><textarea id="description" name="description" class="siimple-textarea" size="40" rows="10" disabled>{{ suit.description }}</textarea></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="pictures" class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
+                    <div id="tabs" class="siimple-tabs siimple-tabs--boxed" >
+                        {% for picture in suit.pictures %}
+                        <div class="siimple-tabs-item icon-image icon-tab" id="t{{ picture.id }}" onclick="viewtab('c{{ picture.id }}', this)"></div>
+                        {% endfor %}
+                    </div>
+                    {% for picture in suit.pictures %}
+                    <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}">
+                        <img src="{{ picture.png }}" height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' class="rotating"/>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

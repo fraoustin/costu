@@ -1,0 +1,273 @@
+.siimple-navbar--primary a.title {
+    text-decoration: none;
+    color: #fff;
+}
+.siimple-navbar--primary .siimple-btn {
+    font-size: 24px;
+    color: #fff;
+}
+.siimple-navbar--primary .siimple-btn:hover {
+    color: #4e91e4;
+}
+.siimple-navbar--primary {
+    position: fixed;
+}
+.hidden {
+    display:none !important;
+}
+a.gravatar img {
+    border-radius: 50%;
+    -webkit-mask-image: -webkit-radial-gradient(circle,#fff,#4e91e4);
+}
+a.gravatar {
+    color: #4e91e4;
+}
+
+.siimple-tip--warning::before {
+    content: "!";
+}
+
+.siimple-tip--error::before {
+    content: "+";
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.siimple-tip--success::before {
+    content: "+";
+}
+
+.general.siimple-tip {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px
+}
+
+.siimple-table-body .siimple-table-row {
+    cursor: pointer;
+}
+
+.search {
+    margin-bottom: 10px;
+    display: flex;
+}
+.search.icon-search:before {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.search .siimple-input {
+    width: -webkit-fill-available;
+    border: 2px solid #eef2f7;
+    background-color: unset;
+}
+
+.content-center {
+    margin: auto;
+    width: max-content;
+}
+
+#content {
+    padding-top:10px;
+}
+
+.shortcut .siimple-card-body {
+    text-align: center;
+}
+
+.shortcut .siimple-card-body .icon {
+    font-size: 80px;
+    padding-bottom: 10px;
+}
+
+form table tr td:last-child {
+    width:100%;
+}
+
+form table tr td:first-child label {
+    white-space: nowrap;
+}
+
+a.no-decorate {
+    text-decoration: none;
+    color: unset;
+}
+.siimple-card-body a.no-decorate {
+    cursor: pointer;
+}
+
+.siimple-spinner.siimple-h1,
+.siimple-spinner.siimple-h1:before,
+.siimple-spinner.siimple-h1:after {
+    width: 40px;
+    height: 40px;
+}
+.siimple-spinner.siimple-h1:before {
+    left: calc(50px * -1);
+}
+.siimple-spinner.siimple-h1:after {
+    left: 50px;
+}
+
+.siimple-spinner.siimple-h2,
+.siimple-spinner.siimple-h2:before,
+.siimple-spinner.siimple-h2:after {
+    width: 32px;
+    height: 32px;
+}
+.siimple-spinner.siimple-h2:before {
+    left: calc(42px * -1);
+}
+.siimple-spinner.siimple-h2:after {
+    left: 42px;
+}
+
+.siimple-spinner.siimple-h3,
+.siimple-spinner.siimple-h3:before,
+.siimple-spinner.siimple-h3:after {
+    width: 28px;
+    height: 28px;
+}
+.siimple-spinner.siimple-h3:before {
+    left: calc(36px * -1);
+}
+.siimple-spinner.siimple-h3:after {
+    left: 36px;
+}
+
+.siimple-spinner.siimple-h4,
+.siimple-spinner.siimple-h4:before,
+.siimple-spinner.siimple-h4:after {
+    width: 24px;
+    height: 24px;
+}
+.siimple-spinner.siimple-h4:before {
+    left: calc(30px * -1);
+}
+.siimple-spinner.siimple-h4:after {
+    left: 30px;
+}
+
+#wait {
+    margin-top: 100px;
+}
+
+.siimple-input.radiobutton {
+    display: block;
+    height: unset;
+    min-height: 34px;
+}
+
+/* ****************************************************** */
+/*                      specific custo                    */
+
+.siimple-textarea {
+    width: 100%;
+}
+
+.siimple-steps-item-description {
+    width: 100px;
+}
+
+.btn-wizard {
+    margin-top: 10px
+}
+
+.siimple-tip.no-background {
+    background-color: #ffffff !important;
+}
+
+.float-right {
+    float: right;
+}
+
+.siimple-textarea, .siimple-input {
+     font-size: 16px;
+}
+
+.siimple--mx-auto {
+    width: fit-content;
+    display: block !important;
+}
+
+
+.siimple-tip--add::before {
+    content: "+";
+}
+
+.margintopfive {
+    margin-top: 5px;
+}
+
+.withpre {
+    white-space: pre-wrap;
+}
+
+.text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: block;
+}
+.border-left {
+    border-left: 1px solid #cbd8e6;
+}
+
+.picture-center{
+    justify-content: center;
+    display: flex;
+}
+
+@media print
+{
+    .no-print {
+        display: none;
+    }
+}
+
+.siimple-content.center,
+.siimple-footer.center {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.index.siimple-navbar {
+    background-color: unset;
+}
+
+.index.siimple-jumbotron {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+.partenaire {
+    width: 150px;
+}
+
+a.nodecorate {
+    text-decoration: unset;
+    color: white;
+}
+
+.siimple-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.siimple-cards .siimple-card {
+    padding-right: 10px;
+}
+
+.siimple-modal--large .siimple-modal-content {
+    height: 100%;
+}
+
+.siimple-modal-body.heightmax {
+    max-height: 80%;
+}
+
+.siimple-jumbotron-title a {
+    text-decoration: none;
+    color: #fff;
+}

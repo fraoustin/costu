@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
+{% if current_user.isadmin %}
+<a href="/suit"><div class="siimple-btn icon-add"></div></a>
+{% endif %}
+<div class="siimple-btn icon-download" onclick="export_table_to_csv('table', 'suits.csv');"></div>
+{% endblock %}
+
+{% block body %}
+<div class="siimple-h2">Costumes</div>
+<div class="search icon-search"><input id="search" type="text" class="siimple-input"></div>
+<div id = "table" class="siimple-table">
+    <div class="siimple-table-header">
+        <div class="siimple-table-row">
+            <div class="siimple-table-cell">Id</div>
+            <div class="siimple-table-cell hidden">Lieu</div>
+            <div class="siimple-table-cell">Portant</div>
+            <div class="siimple-table-cell">Epoque</div>
+            <div class="siimple-table-cell">Genre</div>
+            <div class="siimple-table-cell">Taille</div>
+            <div class="siimple-table-cell">Couleur</div>
+            <div class="siimple-table-cell">Etat</div>
+            <div class="siimple-table-cell">Disponibilité</div>
+            <div class="siimple-table-cell">Type</div>
+            <div class="siimple-table-cell hidden">Description</div>
+            <div class="siimple-table-cell hidden">Last modified by</div>
+            <div class="siimple-table-cell hidden">Last modified</div>
+        </div>
+    </div>
+    <div class="siimple-table-body">
+        {% for suit in suits %}
+        <div class="siimple-table-row" onclick="window.location='/suit/{{ suit.id }}'">
+            <div class="siimple-table-cell">{{ suit.id }}</div>
+            <div class="siimple-table-cell hidden">{{ suit.location }}</div>
+            <div class="siimple-table-cell">{{ suit.portant }}</div>
+            <div class="siimple-table-cell">{{ suit.epoque }}</div>
+            <div class="siimple-table-cell">{{ suit.gender }}</div>
+            <div class="siimple-table-cell">{{ suit.size }}</div>
+            <div class="siimple-table-cell">{{ suit.color }}</div>
+            <div class="siimple-table-cell">{{ suit.state }}</div>
+            <div class="siimple-table-cell">{{ suit.dispo }}</div>
+            <div class="siimple-table-cell">{{ suit.haut }}{{ suit.bas }}{{ suit.robe }}{{ suit.ensemble }}{{ suit.accessoire }}</div>
+            <div class="siimple-table-cell hidden">{{ suit.description }}</div>
+            <div class="siimple-table-cell hidden">{{ suit.lastmodifiedby }}</div>
+            <div class="siimple-table-cell hidden">{{ suit.lastmodified }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

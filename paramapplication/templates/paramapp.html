@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block navbar %}
+<a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
+{% if current_user.isadmin %}
+<div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="siimple-h2">Application Settings</div>
+    <form action="/settings"  method="POST" name="formupdate">
+        <table>
+            <tr>
+                <td><div class="siimple-h3">Environment</div></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">APP_NAME:</label></td>
+                <td>{{ APP_NAME }}</td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">APP_NAME:</label></td>
+                <td>{{ APP_DESC }}</td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">VERSION:</label></td>
+                <td>{{ APP_VERSION }}</td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">HOST:</label></td>
+                <td>{{ APP_HOST }}</td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">PORT:</label></td>
+                <td>{{ APP_PORT }}</td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">DEBUG:</label></td>
+                <td>{{ APP_DEBUG }}</td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">DIR:</label></td>
+                <td>{{ APP_DIR }}</td>
+            </tr>
+            <tr>
+                <td><div class="siimple-h3">Application</div></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">rotate image (0, 90 or -90):</label></td>
+                <td><input name="rotate" id="rotate" class="siimple-input siimple-input--fluid" value="{% if rotate %}{{ rotate }}{% else %}0{% endif %}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">size capture ([width]x[height]):</label></td>
+                <td><input name="sizecamera" id="sizecamera" class="siimple-input siimple-input--fluid" value="{{ sizecamera }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">size preview ([width]x[height]):</label></td>
+                <td><input name="sizepreview" id="sizepreview" class="siimple-input siimple-input--fluid" value="{{ sizepreview }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Limite de recherche:</label></td>
+                <td><input name="limit" id="limit" class="siimple-input siimple-input--fluid" value="{{ limit }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">location:</label></td>
+                <td><input name="location" id="location" class="siimple-input siimple-input--fluid" value="{{ location }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Epoque:</label></td>
+                <td><input name="epoque" id="epoque" class="siimple-input siimple-input--fluid" value="{{ epoque }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">gender:</label></td>
+                <td><input name="gender" id="gender" class="siimple-input siimple-input--fluid" value="{{ gender }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Taille:</label></td>
+                <td><input name="size" id="size" class="siimple-input siimple-input--fluid" value="{{ size }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Couleur:</label></td>
+                <td><input name="color" id="color" class="siimple-input siimple-input--fluid" value="{{ color }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Etat:</label></td>
+                <td><input name="state" id="state" class="siimple-input siimple-input--fluid" value="{{ state }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Disponibilite:</label></td>
+                <td><input name="dispo" id="dispo" class="siimple-input siimple-input--fluid" value="{{ dispo }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Haut:</label></td>
+                <td><input name="haut" id="haut" class="siimple-input siimple-input--fluid" value="{{ haut }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Bas:</label></td>
+                <td><input name="bas" id="bas" class="siimple-input siimple-input--fluid" value="{{ bas }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Robe:</label></td>
+                <td><input name="robe" id="robe" class="siimple-input siimple-input--fluid" value="{{ robe }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Ensemble:</label></td>
+                <td><input name="ensemble" id="ensemble" class="siimple-input siimple-input--fluid" value="{{ ensemble }}"></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Accessoire:</label></td>
+                <td><input name="accessoire" id="accessoire" class="siimple-input siimple-input--fluid" value="{{ accessoire }}"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

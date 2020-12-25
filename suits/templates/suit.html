@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<a href="/suits"><div class="siimple-btn icon-close"></div></a>
+{% if current_user.isadmin %}
+<div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
+    {% if suit.id != None %}
+    <div class="siimple-btn icon-del" onclick="window.document.formdel.submit()"></div>
+    {% endif %}
+{% endif %}
+{% endblock %}
+
+{% block headinit %}
+    <script type="text/javascript">
+        function init() {
+            navigator.mediaDevices.getUserMedia({ audio: false, video: { width: 800, height: 600 } }).then(function(mediaStream) {
+                var video = document.getElementById('sourcevid');
+                video.srcObject = mediaStream;
+                video.onloadedmetadata = function(e) {
+                    document.getElementById('nocamera').classList.add('hidden');
+                    document.getElementById('sourcevid').classList.remove('hidden');
+                    video.play();
+                };
+            }).catch(function(err) { console.log(err.name + ": " + err.message); });
+
+        }
+
+        window.onload = init;
+        </script>
+        <style type="text/css">
+        {% if listofvalue['rotate'][0] == '-90' %}
+        .rotating, video {
+            transform: rotate(-90deg) translateX(-{{ listofvalue['translate'] }}px)
+        }
+        {% endif %}
+        {% if listofvalue['rotate'][0] == '90' %}
+        .rotating, video {
+            transform: rotate(90deg) translateX({{ listofvalue['translate'] }}px)
+        }
+        {% endif %}
+        </style>
+{% endblock %}
+
+{% block body %}
+    <div class="siimple-h2">Costume : {{ suit.title }}</div>
+    {% if suit.id != None %}
+    <form action="/suit/{{ suit.id }}"  method="POST" name="formupdate" enctype=multipart/form-data>
+    {% else %}
+    <form action="/suit"  method="POST" name="formupdate" enctype=multipart/form-data>
+    {% endif %}
+    <div class="siimple-grid">
+        <div class="siimple-grid-row">
+            <div class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
+                <table>
+                    {% if suit.id != None %}
+                    <tr>
+                        <td><label class="siimple-label">Id:</label></td>
+                        <td>{{ suit.id }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><label class="siimple-label">Lieu:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="location" name="location" >
+                            <option value=""></option>
+                            {% for location in listofvalue['location'] %}
+                                <option value="{{ location }}" {% if suit.location == location %}selected{% endif %}>{{ location }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Portant:</label></td>
+                        <td><input name="portant" id="portant" class="siimple-input siimple-input--fluid" value="{{ suit.portant }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Epoque:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="epoque" name="epoque">
+                            <option value=""></option>
+                            {% for epoque in listofvalue['epoque'] %}
+                                <option value="{{ epoque }}" {% if suit.epoque == epoque %}selected{% endif %}>{{ epoque }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Genre:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="gender" name="gender">
+                            <option value=""></option>
+                            {% for gender in listofvalue['gender'] %}
+                                <option value="{{ gender }}" {% if suit.gender == gender %}selected{% endif %}>{{ gender }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Taille:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="size" name="size">
+                            <option value=""></option>
+                            {% for size in listofvalue['size'] %}
+                                <option value="{{ size }}" {% if suit.size == size %}selected{% endif %}>{{ size }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Couleur:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="color" name="color">
+                            <option value=""></option>
+                            {% for color in listofvalue['color'] %}
+                                <option value="{{ color }}" {% if suit.color == color %}selected{% endif %}>{{ color }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Etat:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="state" name="state">
+                            <option value=""></option>
+                            {% for state in listofvalue['state'] %}
+                                <option value="{{ state }}" {% if suit.state == state %}selected{% endif %}>{{ state }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Disponibilité:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="dispo" name="dispo">
+                            <option value=""></option>
+                            {% for dispo in listofvalue['dispo'] %}
+                                <option value="{{ dispo }}" {% if suit.dispo == dispo %}selected{% endif %}>{{ dispo }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Bas:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="bas" name="bas">
+                            <option value=""></option>
+                            {% for elt in listofvalue['bas'] %}
+                                <option value="{{ elt }}" {% if suit.bas == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Haut:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="haut" name="haut">
+                            <option value=""></option>
+                            {% for elt in listofvalue['haut'] %}
+                                <option value="{{ elt }}" {% if suit.haut == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Robe:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="robe" name="robe">
+                            <option value=""></option>
+                            {% for elt in listofvalue['robe'] %}
+                                <option value="{{ elt }}" {% if suit.robe == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Ensemble:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="ensemble" name="ensemble">
+                            <option value=""></option>
+                            {% for elt in listofvalue['ensemble'] %}
+                                <option value="{{ elt }}" {% if suit.ensemble == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Accessoire:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="accessoire" name="accessoire">
+                            <option value=""></option>
+                            {% for elt in listofvalue['accessoire'] %}
+                                <option value="{{ elt }}" {% if suit.accessoire == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Description:</label></td>
+                        <td><textarea id="description" name="description" class="siimple-textarea" size="40" rows="5">{{ suit.description }}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="pictures" class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
+                <div id="tabs" class="siimple-tabs siimple-tabs--boxed" >
+                    <!-- <div class="siimple-tabs-item icon-image icon-tab"></div>
+                    <div class="siimple-tabs-item icon-image icon-tab"></div> -->
+                    <div id="tcamera" class="siimple-tabs-item icon-camera icon-tab siimple-tabs-item--selected" onclick="viewtab('ccamera', this)"></div>
+                    <div id="delpicture" class="icon-tab icon-del siimple--float-right hidden"></div>
+                    {% for picture in suit.pictures %}
+                    <div class="siimple-tabs-item icon-image icon-tab" id="t{{ picture.id }}" onclick="viewtab('c{{ picture.id }}', this)"></div>
+                    {% endfor %}
+                </div>
+                <div id="ccamera" class="tab siimple--content picture-center">
+                    <video id="sourcevid" class="hidden" onclick='clone()' height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' autoplay="true"></video>
+                    <img id="nocamera" src="/css/no-camera.png" width='{{ listofvalue['sizecamera'][0].split('x')[0] }}'/>
+                </div>
+                {% for picture in suit.pictures %}
+                <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}">
+                    <img src="{{ picture.png }}" height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' class="rotating"/>
+                    <textarea class="hidden" id="picture-{{ picture.id}}" name="picture-{{ picture.id }}">{{ picture.png }}</textarea>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </form>
+    <form action="/delsuit/{{ suit.id }}"  method="POST" name="formdel">
+    </form>
+    <script type="text/javascript">
+        function clone(){
+            var vivi = document.getElementById('sourcevid');
+            var tab = document.createElement("div");
+            tab.setAttribute('class', 'siimple-tabs-item icon-image icon-tab');
+            var id = Date.now();
+            tab.setAttribute('id', 't'+id);
+            tab.setAttribute('onclick', "viewtab('c"+id+"', this)");
+            document.getElementById('tabs').appendChild(tab);
+            var divcan = document.createElement("div");
+            divcan.setAttribute('class', 'tab siimple--content picture-center hidden');
+            divcan.setAttribute('id', 'c'+id);
+            var can = document.createElement("canvas");
+            can.setAttribute('height', '{{ listofvalue['sizecamera'][0].split('x')[1] }}');
+            can.setAttribute('width', '{{ listofvalue['sizecamera'][0].split('x')[0] }}');
+            can.classList.add('rotating')
+            divcan.appendChild(can);
+            document.getElementById('pictures').appendChild(divcan);
+            var canvas = document.getElementById('c'+id).getElementsByTagName("canvas")[0].getContext('2d');
+            canvas.drawImage(vivi, 0,0, {{ listofvalue['sizecamera'][0].split('x')[0] }}, {{ listofvalue['sizecamera'][0].split('x')[1] }});
+            var base64=document.getElementById('c'+id).getElementsByTagName("canvas")[0].toDataURL("image/png");
+            var tt = document.createElement("textarea");
+            tt.setAttribute('class', 'hidden');
+            tt.setAttribute('id', 'picture-'+id);
+            tt.setAttribute('name', 'picture-'+id);
+            divcan.appendChild(tt);
+            document.getElementById('picture-'+id).value=base64;
+            document.getElementById('t'+id).click()
+        }
+
+        function viewtab(tab, elt){
+            var tabs = document.querySelectorAll(".tab");
+            for (var j = 0; j < tabs.length; j++)
+                tabs[j].classList.add('hidden');
+            document.getElementById(tab).classList.remove('hidden');            
+            var items = document.querySelectorAll(".siimple-tabs-item--selected");
+            for (var j = 0; j < items.length; j++) 
+                items[j].classList.remove('siimple-tabs-item--selected');
+            elt.classList.add('siimple-tabs-item--selected');
+            if (elt == document.getElementById('tcamera')) {
+                document.getElementById('delpicture').classList.add('hidden')
+            } else {
+                document.getElementById('delpicture').classList.remove('hidden');
+                id = elt.id.substring(1);
+                document.getElementById('delpicture').setAttribute('onclick', "delpicture('"+id+"')");
+            }
+        };
+        
+        function delpicture(id){
+            var tab = document.getElementById('t'+id);
+            tab.parentNode.removeChild(tab);
+            var divcan = document.getElementById('c'+id);
+            divcan.parentNode.removeChild(divcan);
+            document.getElementById('tcamera').click()
+        };
+    </script>
+{% endblock %}

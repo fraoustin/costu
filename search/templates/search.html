@@ -1,0 +1,274 @@
+
+<html>
+    <head>
+        <title>{{ config['APP_NAME'] }}</title>
+        <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+        <!-- siimple -->
+        <link rel="stylesheet" href="/siimple/siimple.min.css">
+        <!-- jalt -->
+        <link rel="stylesheet" href="/css/costu.css">
+        <link rel="stylesheet" href="/css/icon.css">
+        
+        <style type="text/css">
+        {% if listofvalue['rotate'][0] == '-90' %}
+        .rotatingpreview {
+            transform: rotate(-90deg) translateX(-{{ listofvalue['translatepreview'] }}px)
+        }
+        .rotating {
+            transform: rotate(-90deg) translateX(-{{ listofvalue['translate'] }}px)
+        }
+        .siimple-card-body {
+            height: {{ listofvalue['sizepreview'][0].split('x')[0] }};
+        }
+        {% endif %}
+        {% if listofvalue['rotate'][0] == '90' %}
+        .rotatingpreview {
+            transform: rotate(90deg) translateX({{ listofvalue['translatepreview'] }}px)
+        }
+        .rotating {
+            transform: rotate(90deg) translateX({{ listofvalue['translate'] }}px)
+        }
+        .siimple-card-body {
+            height: {{ listofvalue['sizepreview'][0].split('x')[0] }};
+        }
+        {% endif %}
+        </style>
+    </head>
+    <body>
+        <div class="index siimple-navbar siimple-navbar--fluid siimple-navbar--primary no-print">
+            <div class="siimple--float-right">
+
+                <a href="/dashboard"><div class="siimple-btn icon-user"></div></a>
+                {% if current_user.is_authenticated %}
+                <a href="/logout"><div class="siimple-btn icon-out"></div></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="index siimple-jumbotron siimple-jumbotron--primary siimple-jumbotron--fluid">
+            <div class="siimple-jumbotron-title"><a href="/">LA COSTUMERIE</a></div>
+            <div class="siimple-jumbotron-subtitle">De la MJC Sainte-Foy-lès-Lyon &#8211; un désir de culture le besoin de solidarité</div>
+            <div class="siimple-jumbotron-detail">Plus de 5000 costumes historiques et accessoires pour vos pièces de théâtre ou vos bals costumés</div>
+        </div>
+        <div class="siimple-content center">            
+            <form action="/search"  method="POST" name="formsearch" enctype=multipart/form-data {% if suits|length > 0 %} class="hidden" {% endif %}>
+                <table>
+                    <tr>
+                        <td><label class="siimple-label">Recherche: </label></td>
+                        <td><input name="description" id="description" class="siimple-input siimple-input--fluid" value="{{ description }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Lieu:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="location" name="location">
+                            <option value="{{ location }}"></option>
+                            <option value=""></option>
+                            {% for loc in listofvalue['location'] %}
+                                <option value="{{ loc }}" {% if location == loc %}selected{% endif %}>{{ loc }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Genre:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="gender" name="gender">
+                            <option value="{{ gender }}"></option>
+                            <option value=""></option>
+                            {% for gen in listofvalue['gender'] %}
+                                <option value="{{ gen }}" {% if gender == gen %}selected{% endif %}>{{ gen }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Taille:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="size" name="size">
+                            <option value="{{ size }}"></option>
+                            <option value=""></option>
+                            {% for siz in listofvalue['size'] %}
+                                <option value="{{ siz }}" {% if size == siz %}selected{% endif %}>{{ siz }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Epoque:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="epoque" name="epoque">
+                            <option value="{{ epoque }}"></option>
+                            <option value=""></option>
+                            {% for epo in listofvalue['epoque'] %}
+                                <option value="{{ epo }}" {% if epoque == epo %}selected{% endif %}>{{ epo }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Etat:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="state" name="state">
+                            <option value="{{ state }}"></option>
+                            <option value=""></option>
+                            {% for stat in listofvalue['state'] %}
+                                <option value="{{ stat }}" {% if state == stat %}selected{% endif %}>{{ stat }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Couleur:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="color" name="color">
+                            <option value="{{ color }}"></option>
+                            <option value=""></option>
+                            {% for col in listofvalue['color'] %}
+                                <option value="{{ col }}" {% if color == col %}selected{% endif %}>{{ col }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Disponibilité:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="dispo" name="dispo">
+                            <option value="{{ dispo }}"></option>
+                            <option value=""></option>
+                            {% for dis in listofvalue['dispo'] %}
+                                <option value="{{ dis }}" {% if dispo == dis %}selected{% endif %}>{{ dis }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Haut:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="haut" name="haut">
+                            <option value="{{ element }}"></option>
+                            <option value=""></option>
+                            {% for elt in listofvalue['haut'] %}
+                                <option value="{{ elt }}" {% if haut == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Bas:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="bas" name="bas">
+                            <option value="{{ element }}"></option>
+                            <option value=""></option>
+                            {% for elt in listofvalue['bas'] %}
+                                <option value="{{ elt }}" {% if bas == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Robe:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="robe" name="robe">
+                            <option value="{{ element }}"></option>
+                            <option value=""></option>
+                            {% for elt in listofvalue['robe'] %}
+                                <option value="{{ elt }}" {% if robe == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Ensemble:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="ensemble" name="ensemble">
+                            <option value="{{ element }}"></option>
+                            <option value=""></option>
+                            {% for elt in listofvalue['ensemble'] %}
+                                <option value="{{ elt }}" {% if ensemble == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Accessoire:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="accessoire" name="accessoire">
+                            <option value="{{ element }}"></option>
+                            <option value=""></option>
+                            {% for elt in listofvalue['accessoire'] %}
+                                <option value="{{ elt }}" {% if accessoire == elt %}selected{% endif %}>{{ elt }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="hidden">
+                        <td><label class="siimple-label">Update: </label></td>
+                        <td><input name="update" id="update" class="siimple-input siimple-input--fluid" value="{% if suits|length > 0 %}yes{% else %}no{% endif %}"></td>
+                    </tr>
+                </table>
+                <br/>
+            </form>   
+            <div class="siimple-cards">
+            {% for suit in suits %}
+                <div class="siimple-card" style="max-width:300px" onclick="viewsuit({{ suit.id }})">
+                    <div class="siimple-card-header">
+                        {{ suit.title }}
+                    </div>
+                    <div class="siimple-card-body">
+                        {% if suit.pictures|length == 0 %}
+                            <img id="nocamera" src="/css/no-camera.png" height='{{ listofvalue['sizepreview'][0].split('x')[1] }}' width='{{ listofvalue['sizepreview'][0].split('x')[0] }}'/>
+                        {% else %}
+                            <img src="{{ suit.pictures[0].png }}" height='{{ listofvalue['sizepreview'][0].split('x')[1] }}' width='{{ listofvalue['sizepreview'][0].split('x')[0] }}' class="rotatingpreview"></img>
+                        {% endif %}
+                    </div>
+                    <div class="siimple-card-footer">
+                        {{ suit.description}}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="siimple-btn siimple-btn--primary" onclick="window.document.formsearch.submit()">{% if suits|length > 0 %}Modifier{% else %}Lancer{% endif %} la recherche</div>
+        </div>
+        <div {% if suits|length > 0 %} class="hidden" {% endif %} style="text-align: center;"> 0 costume selectionné </div>
+        <div class="siimple-modal siimple-modal--large" id="modal" style="display:none;"></div>
+        <script>
+            function viewtab(tab, elt){
+                var tabs = document.querySelectorAll(".tab");
+                for (var j = 0; j < tabs.length; j++)
+                    tabs[j].classList.add('hidden');
+                document.getElementById(tab).classList.remove('hidden');            
+                var items = document.querySelectorAll(".siimple-tabs-item--selected");
+                for (var j = 0; j < items.length; j++) 
+                    items[j].classList.remove('siimple-tabs-item--selected');
+                elt.classList.add('siimple-tabs-item--selected');
+            };
+
+            function htmlToElement(html) {
+                var template = document.createElement("template");
+                html = html.trim(); // Never return a text node of whitespace as the result
+                template.innerHTML = html;
+                return template.content.firstChild;
+            };
+
+            function viewsuit(id) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        while (document.getElementById("modal").firstChild) {
+                            document.getElementById("modal").removeChild(document.getElementById("modal").firstChild);
+                        }
+                        document.getElementById("modal").appendChild(
+                            htmlToElement(xmlHttp.responseText)
+                        );
+                        document.getElementById("modal").style.display = "";
+                        if (document.getElementById("tabs").getElementsByTagName("div").length != 0){
+                            document.getElementById("tabs").getElementsByTagName("div")[0].click();
+                        }
+                    }
+                }
+                xmlHttp.open("GET", "/search/"+id, true); // true for asynchronous 
+                xmlHttp.send(null);
+            }
+        </script>
+    </body>
+</html>

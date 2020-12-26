@@ -130,14 +130,7 @@
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Disponibilité:</label></td>
-                        <td> 
-                            <select class="siimple-select siimple-select--fluid" id="dispo" name="dispo">
-                            <option value=""></option>
-                            {% for dispo in listofvalue['dispo'] %}
-                                <option value="{{ dispo }}" {% if suit.dispo == dispo %}selected{% endif %}>{{ dispo }}</option>
-                            {% endfor %}
-                            </select>
-                        </td>
+                        <td><input name="dispo" id="dispo" class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}"></td>
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Bas:</label></td>

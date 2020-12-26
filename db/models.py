@@ -2,6 +2,7 @@ from flask_login import current_user
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
+import hashlib
 
 
 class User(db.Model):

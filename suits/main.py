@@ -14,7 +14,7 @@ from db.models import ParamApp
 
 getBool ={'on': True, 'off': False}
 
-LISTOFVALUE = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'dispo', 'bas', 'haut', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate']
+LISTOFVALUE = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'bas', 'haut', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate']
 
 def getlistofvalue():
     params = {}

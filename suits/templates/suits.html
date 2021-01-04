@@ -2,9 +2,7 @@
 
 {% block navbar %}
 <a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
-{% if current_user.isadmin %}
 <a href="/suit"><div class="siimple-btn icon-add"></div></a>
-{% endif %}
 <div class="siimple-btn icon-download" onclick="export_table_to_csv('table', 'suits.csv');"></div>
 {% endblock %}
 

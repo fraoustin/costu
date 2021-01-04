@@ -37,7 +37,6 @@ def view(id):
         return redirect(url_for('suits'))
         
 @login_required
-@checkAdmin()
 def new():
     return render_template('suit.html', suit=Suit(location=current_user.location), listofvalue=getlistofvalue())
 

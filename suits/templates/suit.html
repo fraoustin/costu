@@ -2,11 +2,9 @@
 
 {% block navbar %}
 <a href="/suits"><div class="siimple-btn icon-close"></div></a>
-{% if current_user.isadmin %}
 <div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
-    {% if suit.id != None %}
-    <div class="siimple-btn icon-del" onclick="window.document.formdel.submit()"></div>
-    {% endif %}
+{% if suit.id != None %}
+<div class="siimple-btn icon-del" onclick="window.document.formdel.submit()"></div>
 {% endif %}
 {% endblock %}
 

@@ -3,7 +3,7 @@
 {% block navbar %}
 <a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
 <a href="/suit"><div class="siimple-btn icon-add"></div></a>
-<div class="siimple-btn icon-download" onclick="export_table_to_csv('table', 'suits.csv');"></div>
+<div class="siimple-btn icon-download no-mobil" onclick="export_table_to_csv('table', 'suits.csv');"></div>
 {% endblock %}
 
 {% block body %}
@@ -30,7 +30,7 @@
     <div class="siimple-table-body">
         {% for suit in suits %}
         <div class="siimple-table-row" onclick="window.location='/suit/{{ suit.id }}'">
-            <div class="siimple-table-cell">{{ suit.id }}</div>
+            <div class="siimple-table-cell">{{ suit.idformat }}</div>
             <div class="siimple-table-cell hidden">{{ suit.location }}</div>
             <div class="siimple-table-cell">{{ suit.portant }}</div>
             <div class="siimple-table-cell">{{ suit.epoque }}</div>

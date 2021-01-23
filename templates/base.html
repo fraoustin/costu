@@ -17,7 +17,7 @@
 
                 <div class="siimple--float-right">
                     {% block navbar %}{% endblock %}
-                    <a href="/currentuser" class="gravatar">
+                    <a href="/currentuser" class="gravatar no-mobil">
                         {% if current_user.gravatar %}
                             <div class="siimple-btn"><img src='{{ current_user.urlgravatar }}?size=24'/></div>
                         {% else %}

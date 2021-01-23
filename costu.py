@@ -16,7 +16,7 @@ COSTU_HOST = os.environ.get('COSTU_HOST', '0.0.0.0')
 COSTU_DIR = os.environ.get('COSTU_DIR', os.path.dirname(os.path.abspath(__file__)))
 
 app = Flask(__name__)
-app.config["VERSION"] = "0.0.1"
+app.config["VERSION"] = "0.1.0"
 
 app.config["APP_PORT"] = COSTU_PORT
 app.config["APP_HOST"] = COSTU_HOST

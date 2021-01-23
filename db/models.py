@@ -154,6 +154,13 @@ class Suit(db.Model):
         for picture in self.pictures:
             picture.remove()
         return db.Model.remove(self)
+    
+    @property
+    def idformat(self):
+        fmt = '{:0>' + ParamApp.getValue('formatid', '4') + '}'
+        return fmt.format(self.id)
+            
+
 
 
 class Picture(db.Model):

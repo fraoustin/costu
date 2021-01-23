@@ -271,3 +271,25 @@ a.nodecorate {
     text-decoration: none;
     color: #fff;
 }
+
+.siimple--float-middle {
+    width: 100%;
+    text-align: center;
+}
+
+.siimple--float-right-middle {
+    float: right!important;
+}
+
+
+@media screen and (max-width: 768px) {
+    .no-mobil {
+        display: none !important;
+    }
+
+    .siimple--float-right-middle {
+        width: 100%;
+        text-align: center;
+    }
+
+}

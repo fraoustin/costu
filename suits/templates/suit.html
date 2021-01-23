@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block navbar %}
-<a href="/suits"><div class="siimple-btn icon-close"></div></a>
+<div class="siimple-btn icon-close" onclick="quitsuit()"></div>
+<!--<a href="/suits"><div class="siimple-btn icon-close"></div></a>-->
 <div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
 {% if suit.id != None %}
-<div class="siimple-btn icon-del" onclick="window.document.formdel.submit()"></div>
+<div class="siimple-btn icon-del" onclick="delsuit()"></div>
 {% endif %}
+<a href="/suit"><div class="siimple-btn icon-add no-mobil"></div></a>
 {% endblock %}
 
 {% block headinit %}
@@ -53,13 +55,13 @@
                     {% if suit.id != None %}
                     <tr>
                         <td><label class="siimple-label">Id:</label></td>
-                        <td>{{ suit.id }}</td>
+                        <td>{{ suit.idformat }}</td>
                     </tr>
                     {% endif %}
                     <tr>
                         <td><label class="siimple-label">Lieu:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="location" name="location" >
+                            <select class="siimple-select siimple-select--fluid" id="location" name="location" onchange="changesuit()">
                             <option value=""></option>
                             {% for location in listofvalue['location'] %}
                                 <option value="{{ location }}" {% if suit.location == location %}selected{% endif %}>{{ location }}</option>
@@ -69,12 +71,12 @@
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Portant:</label></td>
-                        <td><input name="portant" id="portant" class="siimple-input siimple-input--fluid" value="{{ suit.portant }}"></td>
+                        <td><input name="portant" id="portant" class="siimple-input siimple-input--fluid" value="{{ suit.portant }}"  onchange="changesuit()"></td>
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Epoque:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="epoque" name="epoque">
+                            <select class="siimple-select siimple-select--fluid" id="epoque" name="epoque" onchange="changesuit()">
                             <option value=""></option>
                             {% for epoque in listofvalue['epoque'] %}
                                 <option value="{{ epoque }}" {% if suit.epoque == epoque %}selected{% endif %}>{{ epoque }}</option>
@@ -85,7 +87,7 @@
                     <tr>
                         <td><label class="siimple-label">Genre:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="gender" name="gender">
+                            <select class="siimple-select siimple-select--fluid" id="gender" name="gender" onchange="changesuit()">
                             <option value=""></option>
                             {% for gender in listofvalue['gender'] %}
                                 <option value="{{ gender }}" {% if suit.gender == gender %}selected{% endif %}>{{ gender }}</option>
@@ -96,7 +98,7 @@
                     <tr>
                         <td><label class="siimple-label">Taille:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="size" name="size">
+                            <select class="siimple-select siimple-select--fluid" id="size" name="size" onchange="changesuit()">
                             <option value=""></option>
                             {% for size in listofvalue['size'] %}
                                 <option value="{{ size }}" {% if suit.size == size %}selected{% endif %}>{{ size }}</option>
@@ -107,7 +109,7 @@
                     <tr>
                         <td><label class="siimple-label">Couleur:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="color" name="color">
+                            <select class="siimple-select siimple-select--fluid" id="color" name="color" onchange="changesuit()">
                             <option value=""></option>
                             {% for color in listofvalue['color'] %}
                                 <option value="{{ color }}" {% if suit.color == color %}selected{% endif %}>{{ color }}</option>
@@ -118,7 +120,7 @@
                     <tr>
                         <td><label class="siimple-label">Etat:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="state" name="state">
+                            <select class="siimple-select siimple-select--fluid" id="state" name="state" onchange="changesuit()">
                             <option value=""></option>
                             {% for state in listofvalue['state'] %}
                                 <option value="{{ state }}" {% if suit.state == state %}selected{% endif %}>{{ state }}</option>
@@ -128,12 +130,12 @@
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Disponibilité:</label></td>
-                        <td><input name="dispo" id="dispo" class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}"></td>
+                        <td><input name="dispo" id="dispo" class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}"  onchange="changesuit()"></td>
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Bas:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="bas" name="bas">
+                            <select class="siimple-select siimple-select--fluid" id="bas" name="bas" onchange="changesuit()">
                             <option value=""></option>
                             {% for elt in listofvalue['bas'] %}
                                 <option value="{{ elt }}" {% if suit.bas == elt %}selected{% endif %}>{{ elt }}</option>
@@ -144,7 +146,7 @@
                     <tr>
                         <td><label class="siimple-label">Haut:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="haut" name="haut">
+                            <select class="siimple-select siimple-select--fluid" id="haut" name="haut" onchange="changesuit()">
                             <option value=""></option>
                             {% for elt in listofvalue['haut'] %}
                                 <option value="{{ elt }}" {% if suit.haut == elt %}selected{% endif %}>{{ elt }}</option>
@@ -155,7 +157,7 @@
                     <tr>
                         <td><label class="siimple-label">Robe:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="robe" name="robe">
+                            <select class="siimple-select siimple-select--fluid" id="robe" name="robe" onchange="changesuit()">
                             <option value=""></option>
                             {% for elt in listofvalue['robe'] %}
                                 <option value="{{ elt }}" {% if suit.robe == elt %}selected{% endif %}>{{ elt }}</option>
@@ -166,7 +168,7 @@
                     <tr>
                         <td><label class="siimple-label">Ensemble:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="ensemble" name="ensemble">
+                            <select class="siimple-select siimple-select--fluid" id="ensemble" name="ensemble" onchange="changesuit()">
                             <option value=""></option>
                             {% for elt in listofvalue['ensemble'] %}
                                 <option value="{{ elt }}" {% if suit.ensemble == elt %}selected{% endif %}>{{ elt }}</option>
@@ -177,7 +179,7 @@
                     <tr>
                         <td><label class="siimple-label">Accessoire:</label></td>
                         <td> 
-                            <select class="siimple-select siimple-select--fluid" id="accessoire" name="accessoire">
+                            <select class="siimple-select siimple-select--fluid" id="accessoire" name="accessoire" onchange="changesuit()">
                             <option value=""></option>
                             {% for elt in listofvalue['accessoire'] %}
                                 <option value="{{ elt }}" {% if suit.accessoire == elt %}selected{% endif %}>{{ elt }}</option>
@@ -187,7 +189,7 @@
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Description:</label></td>
-                        <td><textarea id="description" name="description" class="siimple-textarea" size="40" rows="5">{{ suit.description }}</textarea></td>
+                        <td><textarea id="description" name="description" class="siimple-textarea" size="40" rows="5"  onchange="changesuit()">{{ suit.description }}</textarea></td>
                     </tr>
                 </table>
             </div>
@@ -196,7 +198,6 @@
                     <!-- <div class="siimple-tabs-item icon-image icon-tab"></div>
                     <div class="siimple-tabs-item icon-image icon-tab"></div> -->
                     <div id="tcamera" class="siimple-tabs-item icon-camera icon-tab siimple-tabs-item--selected" onclick="viewtab('ccamera', this)"></div>
-                    <div id="delpicture" class="icon-tab icon-del siimple--float-right hidden"></div>
                     {% for picture in suit.pictures %}
                     <div class="siimple-tabs-item icon-image icon-tab" id="t{{ picture.id }}" onclick="viewtab('c{{ picture.id }}', this)"></div>
                     {% endfor %}
@@ -205,8 +206,9 @@
                     <video id="sourcevid" class="hidden" onclick='clone()' height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' autoplay="true"></video>
                     <img id="nocamera" src="/css/no-camera.png" width='{{ listofvalue['sizecamera'][0].split('x')[0] }}'/>
                 </div>
+                <div id="delpicture" class="icon-tab icon-del siimple--float-right-middle hidden"></div>
                 {% for picture in suit.pictures %}
-                <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}">
+                <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}" style="height: {{ listofvalue['sizecamera'][0].split('x')[0] }}">
                     <img src="{{ picture.png }}" height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' class="rotating"/>
                     <textarea class="hidden" id="picture-{{ picture.id}}" name="picture-{{ picture.id }}">{{ picture.png }}</textarea>
                 </div>
@@ -218,6 +220,24 @@
     <form action="/delsuit/{{ suit.id }}"  method="POST" name="formdel">
     </form>
     <script type="text/javascript">
+        var ischanged = false;
+
+        function changesuit(){
+            ischanged = true;
+            console.log("ischanged")
+        }
+
+        function quitsuit(){
+            if( ischanged == false ) {
+                window.location = '/suits'; 
+            } else {
+                var retVal = confirm("Voulez vous quitter alors que le costume est peut être modifié?");
+                if( retVal == true ) {
+                    window.location = '/suits'; 
+                };
+            };
+        }
+        
         function clone(){
             var vivi = document.getElementById('sourcevid');
             var tab = document.createElement("div");
@@ -245,6 +265,7 @@
             divcan.appendChild(tt);
             document.getElementById('picture-'+id).value=base64;
             document.getElementById('t'+id).click()
+            ischanged = true;
         }
 
         function viewtab(tab, elt){
@@ -271,6 +292,14 @@
             var divcan = document.getElementById('c'+id);
             divcan.parentNode.removeChild(divcan);
             document.getElementById('tcamera').click()
+            ischanged = true;
         };
+
+        function delsuit(){
+            var retVal = confirm("Voulez vous supprimer le costume?");
+            if( retVal == true ) {
+                window.document.formdel.submit()
+            };
+        }
     </script>
 {% endblock %}

@@ -10,7 +10,7 @@ import random
 from db import db
 from db.models import ParamApp
 
-PARAMS = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'type', 'haut', 'bas', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate', 'sizepreview', 'limit']
+PARAMS = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'type', 'haut', 'bas', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate', 'sizepreview', 'limit', 'formatid']
 
 
 @login_required

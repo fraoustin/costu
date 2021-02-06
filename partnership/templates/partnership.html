@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<a href="/partnerships"><div class="siimple-btn icon-close"></div></a>
+<div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
+{% if partner.id != None %}
+<div class="siimple-btn icon-del" onclick="window.document.formdel.submit()"></div>
+{% endif %}
+{% endblock %}
+
+{% block headinit %}
+{% endblock %}
+
+{% block body %}
+    <div class="siimple-h2">Partenaire : {{ partner.name }}</div>
+    {% if partner.id != None %}
+    <form action="/partnership/{{ partner.id }}"  method="POST" name="formupdate">
+    {% else %}
+    <form action="/partnership"  method="POST" name="formupdate">
+    {% endif %}
+    <div class="siimple-grid">
+        <div class="siimple-grid-row">
+            <div class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
+                <table>
+                    {% if partner.id != None %}
+                    <tr>
+                        <td><label class="siimple-label">Id:</label></td>
+                        <td>{{ partner.id }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><label class="siimple-label">nom:</label></td>
+                        <td><input name="name" id="name" class="siimple-input siimple-input--fluid" value="{{ partner.name }}""></td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">url:</label></td>
+                        <td><input name="url" id="url" class="siimple-input siimple-input--fluid" value="{{ partner.url }}""></td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">image:</label></td>
+                        <td><input name="img" id="img" class="siimple-input siimple-input--fluid" value="{{ partner.img }}""></td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Actif: </label></td>
+                        <td><div class="siimple-switch"><input type="checkbox" id="actif" name="actif" {% if partner.actif %}checked{% endif %} ><label for="actif"></label></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </form>
+    <form action="/delpartnership/{{ partner.id }}"  method="POST" name="formdel">
+    </form>
+{% endblock %}

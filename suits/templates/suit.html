@@ -59,6 +59,10 @@
                     </tr>
                     {% endif %}
                     <tr>
+                        <td><label class="siimple-label">Disponibilité:</label></td>
+                        <td><input name="dispo" id="dispo" class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}"  onchange="changesuit()"></td>
+                    </tr>
+                    <tr>
                         <td><label class="siimple-label">Lieu:</label></td>
                         <td> 
                             <select class="siimple-select siimple-select--fluid" id="location" name="location" onchange="changesuit()">
@@ -127,10 +131,6 @@
                             {% endfor %}
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <td><label class="siimple-label">Disponibilité:</label></td>
-                        <td><input name="dispo" id="dispo" class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}"  onchange="changesuit()"></td>
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Bas:</label></td>

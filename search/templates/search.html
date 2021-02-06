@@ -36,19 +36,16 @@
         </style>
     </head>
     <body>
-        <div class="index siimple-navbar siimple-navbar--fluid siimple-navbar--primary no-print">
-            <div class="siimple--float-right">
+        <div class="siimple--float-right" style="margin: 10px">
 
-                <a href="/dashboard"><div class="siimple-btn icon-user"></div></a>
-                {% if current_user.is_authenticated %}
-                <a href="/logout"><div class="siimple-btn icon-out"></div></a>
-                {% endif %}
-            </div>
+            <a href="/dashboard"><div class="siimple-btn icon-user" style="color: grey"></div></a>
+            {% if current_user.is_authenticated %}
+            <a href="/logout"><div class="siimple-btn icon-out" style="color: grey"></div></a>
+            {% endif %}
         </div>
-        <div class="index siimple-jumbotron siimple-jumbotron--primary siimple-jumbotron--fluid">
-            <div class="siimple-jumbotron-title"><a href="/">LA COSTUMERIE</a></div>
-            <div class="siimple-jumbotron-subtitle">De la MJC Sainte-Foy-lès-Lyon &#8211; un désir de culture le besoin de solidarité</div>
-            <div class="siimple-jumbotron-detail">Plus de 5000 costumes historiques et accessoires pour vos pièces de théâtre ou vos bals costumés</div>
+        <div class="siimple-content center">{{ titlehome|safe }}</div>
+        <div class="tab siimple--content picture-center" id="c1">
+            <img src="/img/{{ bannerhome }}" style="width:80%"/>
         </div>
         <div class="siimple-content center">            
             <form action="/search"  method="POST" name="formsearch" enctype=multipart/form-data {% if suits|length > 0 %} class="hidden" {% endif %}>
@@ -56,6 +53,18 @@
                     <tr>
                         <td><label class="siimple-label">Recherche: </label></td>
                         <td><input name="description" id="description" class="siimple-input siimple-input--fluid" value="{{ description }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="siimple-label">Disponibilité:</label></td>
+                        <td> 
+                            <select class="siimple-select siimple-select--fluid" id="dispo" name="dispo">
+                            <option value="{{ dispo }}"></option>
+                            <option value=""></option>
+                            {% for dis in listofvalue['dispo'] %}
+                                <option value="{{ dis }}" {% if dispo == dis %}selected{% endif %}>{{ dis }}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><label class="siimple-label">Lieu:</label></td>
@@ -125,18 +134,6 @@
                             <option value=""></option>
                             {% for col in listofvalue['color'] %}
                                 <option value="{{ col }}" {% if color == col %}selected{% endif %}>{{ col }}</option>
-                            {% endfor %}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="siimple-label">Disponibilité:</label></td>
-                        <td> 
-                            <select class="siimple-select siimple-select--fluid" id="dispo" name="dispo">
-                            <option value="{{ dispo }}"></option>
-                            <option value=""></option>
-                            {% for dis in listofvalue['dispo'] %}
-                                <option value="{{ dis }}" {% if dispo == dis %}selected{% endif %}>{{ dis }}</option>
                             {% endfor %}
                             </select>
                         </td>

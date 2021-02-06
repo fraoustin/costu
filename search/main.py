@@ -77,7 +77,9 @@ def search():
         state = request.form.get('state',''),
         color = request.form.get('color',''),
         dispo = request.form.get('dispo',''),
-        description = request.form.get('description','')
+        description = request.form.get('description',''), 
+        titlehome=ParamApp.getValue('titlehome'), 
+        bannerhome=ParamApp.getValue('bannerhome')
         )
 
 def searchsuits():
@@ -106,7 +108,9 @@ def searchsuits():
         robe = request.form.get('robe',''),
         ensemble = request.form.get('ensemble',''),
         accessoire = request.form.get('accessoire',''),
-        description = request.form.get('description','')
+        description = request.form.get('description',''), 
+        titlehome=ParamApp.getValue('titlehome'), 
+        bannerhome=ParamApp.getValue('bannerhome')
         )
 
 def searchsuit(id):

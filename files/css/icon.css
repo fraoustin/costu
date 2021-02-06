@@ -28,7 +28,9 @@
 .icon-costu,
 .icon-param,
 .icon-camera,
-.icon-image {
+.icon-image,
+.icon-home,
+.icon-link  {
     font-family: icomoon;
     speak: none;
     font-style: normal;
@@ -110,4 +112,14 @@
 .icon-image:before {
     content: "\e90d"
 }
+
+.icon-home:before {
+    content: "\e90b"
+}
+
+.icon-link:before {
+    content: "\e9cb"
+}
+
+
 

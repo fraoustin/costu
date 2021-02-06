@@ -12,65 +12,33 @@
         {% block headinit %}{% endblock %}
     </head>
     <body>
-        <div class="index siimple-navbar siimple-navbar--fluid siimple-navbar--primary no-print">
-            <div class="siimple--float-right">
+        <div class="siimple--float-right" style="margin: 10px">
 
-                <a href="/dashboard"><div class="siimple-btn icon-user"></div></a>
-                {% if current_user.is_authenticated %}
-                <a href="/logout"><div class="siimple-btn icon-out"></div></a>
-                {% endif %}
-            </div>
+            <a href="/dashboard"><div class="siimple-btn icon-user" style="color: grey"></div></a>
+            {% if current_user.is_authenticated %}
+            <a href="/logout"><div class="siimple-btn icon-out" style="color: grey"></div></a>
+            {% endif %}
         </div>
-        <div class="index siimple-jumbotron siimple-jumbotron--primary siimple-jumbotron--fluid">
-            <div class="siimple-jumbotron-title">LA COSTUMERIE</div>
-            <div class="siimple-jumbotron-subtitle">De la MJC Sainte-Foy-lès-Lyon &#8211; un désir de culture le besoin de solidarité</div>
-            <div class="siimple-jumbotron-detail">Plus de 5000 costumes historiques et accessoires pour vos pièces de théâtre ou vos bals costumés</div>
+        <div class="siimple-content center">{{ titlehome|safe }}</div>
+        <div class="tab siimple--content picture-center" id="c1">
+            <img src="/img/{{ bannerhome }}" style="width:80%"/>
         </div>
         <div class="siimple-content center">
-            <div class="tab siimple--content picture-center" id="c1">
-                <img src="https://www.mjcstefoy.org/wp-content/uploads/2019/03/D3Z6616-Copie-WEB-1-1.jpg"/>
-            </div>
-            <div class="siimple-h6">
-            Le centre ressources théâtre a acquit le stock de la maison Lyonnaise Félix, à sa liquidation, pour le mettre à disposition du monde du théâtre non professionnel…Cet investissement qui a permit de sauver ce patrimoine historique, de nombreux costumes datent du XVIII eme, est devenu un projet pilote de la MJC. Inventorier, classer, restaurer ces milliers de pièces afin de les valoriser et de les louer dans une démarche non commerciale, tel est le challenge de la Costumerie , un projet à la frontière de l’associatif et de l’économie sociale et solidaire…
-            <br/><br/>
-            C’est donc un service associatif avec plus de 7000 costumes historiques et accessoires divers pour enfants et adultes… Animateurs de théâtre, metteurs en scène, enseignants nous pouvons vous accompagner dans votre réalisation théâtrale pour la partie costume…
-            </div>
+            {{ bodyhome|safe }}
             <br/><br/>
             <div class="siimple-btn siimple-btn--primary"><a href="/search" class="nodecorate">Rechercher dans la base de costume</a></div>
         </div>
         <div class="siimple-footer center">
+            {{ contacthome|safe }}
             <div class="siimple-h3">Nos partenaires</div>
-            <div class="siimple-grid">
-                <div class="siimple-grid-row">
-                    <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
-                        <a href="http://www.saintefoyleslyon.fr/"> 
-                            <img src="https://www.mjcstefoy.org/wp-content/uploads/2017/12/LOGO-Ste-Foy-SF-Quadri-1.bmp" class="partenaire"/>
-                        </a>
-                    </div>
-                    <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
-                        <a href="https://www.grandlyon.com/">
-                            <img src="https://www.mjcstefoy.org/wp-content/uploads/2017/12/Logo-METROPOLE-2-300x98.jpg" class="partenaire"/>
-                        </a>
-                    </div>
-                    <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
-                        <img src="https://www.mjcstefoy.org/wp-content/uploads/2017/12/jeunesse-sport-educ-pop-vie-associat-1.jpg" class="partenaire"/>
-                    </div>
-                    <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
-                        <a href="https://www.auvergnerhonealpes.fr/">
-                            <img src="https://www.mjcstefoy.org/wp-content/uploads/2017/12/LOGO-REGION-AUVERGNE-RA02-1.png" class="partenaire"/>
-                        </a>
-                    </div>
-                    <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
-                        <a href="https://r2as.org/">
-                            <img src="https://www.mjcstefoy.org/wp-content/uploads/2017/12/logo-r2as-fond-clair02-1.png" class="partenaire"/>
-                        </a>
-                    </div>
-                    <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
-                        <a href="http://www.cmjcf.fr/">
-                            <img src="https://www.mjcstefoy.org/wp-content/uploads/2020/09/logo-Confederation-des-MJC-de-France-cmjcf-300x190.png" class="partenaire"/>
-                        </a>
-                    </div>
+            <div style="margin:auto;">
+                {% for partner in partners %}
+                <div class="partenaire siimple-grid-col siimple-grid-col--1 siimple-grid-col--md-6">
+                    <a href="{{ partner.url }}"> 
+                        <img src="{{ partner.img }}" class="partenaire"/>
+                    </a>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </body>

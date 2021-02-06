@@ -7,6 +7,10 @@ from auth import Auth, login_required
 from info import Info
 from static import Static
 from paramapplication import ParamApplication
+from homepage import HomePage
+from partnership import PartnerShip
+from db.models import ParamApp
+from db.models import Partner
 
 toBoolean = {'true': True, 'false':False}
 
@@ -16,7 +20,7 @@ COSTU_HOST = os.environ.get('COSTU_HOST', '0.0.0.0')
 COSTU_DIR = os.environ.get('COSTU_DIR', os.path.dirname(os.path.abspath(__file__)))
 
 app = Flask(__name__)
-app.config["VERSION"] = "0.1.0"
+app.config["VERSION"] = "0.1.1"
 
 app.config["APP_PORT"] = COSTU_PORT
 app.config["APP_HOST"] = COSTU_HOST
@@ -41,6 +45,14 @@ app.register_blueprint(Static(name="siimple", url_prefix="/siimple/", path=os.pa
 app.register_blueprint(Static(name="css", url_prefix="/css/", path=os.path.join(COSTU_PATH, "css")))
 # register ParamApplication
 app.register_blueprint(ParamApplication(url_prefix="/"))
+# register HomePage
+app.config['APP_IMG'] = os.environ.get('COSTU_IMG', os.path.join(COSTU_PATH, "img"))
+if os.path.isdir(app.config['APP_IMG']) is False:
+    os.mkdir(app.config['APP_IMG'])
+app.register_blueprint(Static(name="img", url_prefix="/img/", path=app.config['APP_IMG']))
+app.register_blueprint(HomePage(url_prefix="/"))
+# register HomePage
+app.register_blueprint(PartnerShip(url_prefix="/"))
 
 # register COSTU
 from suits import Suits
@@ -57,7 +69,12 @@ def dashboard():
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template('index.html')
+    return render_template('index.html', 
+        titlehome=ParamApp.getValue('titlehome'), 
+        bodyhome=ParamApp.getValue('bodyhome'), 
+        bannerhome=ParamApp.getValue('bannerhome'), 
+        contacthome=ParamApp.getValue('contacthome'),
+        partners=Partner.query.filter_by(actif=True).order_by(Partner.id).all())
 
 
 if __name__ == "__main__":

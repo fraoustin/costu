@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block navbar %}
+<a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
+{% if current_user.isadmin %}
+<div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="siimple-h2">Home Page Settings</div>
+    <form action="/homepage"  method="POST" name="formupdate" enctype=multipart/form-data>
+        <table>
+            <tr>
+                <td><label class="siimple-label">Titre:</label></td>
+                <td><textarea id="titlehome" name="titlehome" class="siimple-textarea" size="40" rows="10">{{ titlehome }}</textarea></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Bandeau:</label></td>
+                <td>
+                    <div style="display: flex;">
+                        <input name="bannerhome" id="bannerhome" class="siimple-input siimple-input--fluid" value="{{ bannerhome }}">
+                        <div class="siimple-btn siimple-btn--primary icon-upload" onclick="document.getElementById('file').click()"></div><input type="file" name="file" id="file" onchange="changeInput()"  style="display: none">
+                    </div>
+                <td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Contenu:</label></td>
+                <td><textarea id="bodyhome" name="bodyhome" class="siimple-textarea" size="40" rows="10">{{ bodyhome }}</textarea></td>
+            </tr>
+            <tr>
+                <td><label class="siimple-label">Contact:</label></td>
+                <td><textarea id="contacthome" name="contacthome" class="siimple-textarea" size="40" rows="10">{{ contacthome }}</textarea></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function changeInput(){
+            var fullPath = document.getElementById('file').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+                document.getElementById('bannerhome').value=filename;
+            }
+        }
+    </script>
+{% endblock %}

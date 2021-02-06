@@ -10,6 +10,10 @@
                 <div class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
                     <table style="width:100%">
                         <tr>
+                            <td><label class="siimple-label">Disponibilité:</label></td>
+                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}" disabled></td>
+                        </tr>
+                        <tr>
                             <td><label class="siimple-label">Lieu:</label></td>
                             <td><input class="siimple-input siimple-input--fluid" value="{{ suit.location }}" disabled></td>
                         </tr>
@@ -36,10 +40,6 @@
                         <tr>
                             <td><label class="siimple-label">Etat:</label></td>
                             <td><input class="siimple-input siimple-input--fluid" value="{{ suit.state }}" disabled></td>
-                        </tr>
-                        <tr>
-                            <td><label class="siimple-label">Disponibilité:</label></td>
-                            <td><input class="siimple-input siimple-input--fluid" value="{{ suit.dispo }}" disabled></td>
                         </tr>
                         {% if suit.bas != "" %}
                         <tr>

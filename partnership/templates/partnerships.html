@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
+<a href="/partnership"><div class="siimple-btn icon-add"></div></a>
+<div class="siimple-btn icon-download no-mobil" onclick="export_table_to_csv('table', 'partners.csv');"></div>
+{% endblock %}
+
+{% block body %}
+<div class="siimple-h2">Partenaires</div>
+<div class="search icon-search"><input id="search" type="text" class="siimple-input"></div>
+<div id = "table" class="siimple-table">
+    <div class="siimple-table-header">
+        <div class="siimple-table-row">
+            <div class="siimple-table-cell">Id</div>
+            <div class="siimple-table-cell">nom</div>
+            <div class="siimple-table-cell">url</div>
+            <div class="siimple-table-cell">actif</div>
+            <div class="siimple-table-cell hidden">Image</div>
+        </div>
+    </div>
+    <div class="siimple-table-body">
+        {% for partner in partners %}
+        <div class="siimple-table-row" onclick="window.location='/partnership/{{ partner.id }}'">
+            <div class="siimple-table-cell">{{ partner.id }}</div>
+            <div class="siimple-table-cell">{{ partner.name }}</div>
+            <div class="siimple-table-cell">{{ partner.url }}</div>
+            <div class="siimple-table-cell">{{ partner.actif }}</div>
+            <div class="siimple-table-cell hidden">{{ partner.img }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

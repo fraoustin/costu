@@ -190,3 +190,19 @@ class Picture(db.Model):
         self.lastmodified = datetime.datetime.now()
         db.Model.save(self)
     
+
+    
+
+class Partner(db.Model):
+    __tablename__ = 'partner'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False)
+    url = db.Column(db.String, nullable=True)
+    img = db.Column(db.String, nullable=True)
+    actif = db.Column(db.Boolean, default=False, nullable=False)
+
+    def __getattribute__(self, name):
+        if name not in ('id') and db.Model.__getattribute__(self, name) == None:
+            return ""
+        return db.Model.__getattribute__(self, name)

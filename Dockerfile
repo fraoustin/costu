@@ -19,6 +19,9 @@ FROM python:3.8-alpine
 RUN mkdir /data
 VOLUME /data
 
+RUN mkdir /img
+VOLUME /img
+
 RUN mkdir /costu
 COPY . /costu/
 RUN rm -rf /costu/files
@@ -34,6 +37,7 @@ ENV COSTU_PORT 5000
 ENV COSTU_DEBUG false
 ENV COSTU_HOST 0.0.0.0
 ENV COSTU_DIR /data
+ENV COSTU_IMG /img
 
 EXPOSE 5000
 

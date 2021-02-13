@@ -1,4 +1,6 @@
 from flask_login import current_user
+from flask import current_app
+import os
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
@@ -178,6 +180,10 @@ class Picture(db.Model):
         db.Model.__setattr__(self, name, value)
 
     def __getattribute__(self, name):
+        if name == 'png':
+            if self.id is not None and os.path.isfile(os.path.join(current_app.config['APP_IMG'], "%s.png" % str(self.id))):
+                with open(os.path.join(current_app.config['APP_IMG'], "%s.png" % str(self.id)), "r") as filepng:
+                    return filepng.read()
         if name not in ('id') and db.Model.__getattribute__(self, name) == None:
             return ""
         return db.Model.__getattribute__(self, name)
@@ -188,7 +194,16 @@ class Picture(db.Model):
         except Exception as err:
             self.lastmodifiedby = 'external'
         self.lastmodified = datetime.datetime.now()
+        dataimg = self.png
+        self.png = "in file"
         db.Model.save(self)
+        with open(os.path.join(current_app.config['APP_IMG'], "%s.png" % str(self.id)), "w") as filepng:
+            filepng.write(dataimg)
+    
+    def remove(self):
+        if self.id is not None and os.path.isfile(os.path.join(current_app.config['APP_IMG'], "%s.png" % str(self.id))):
+            os.remove(os.path.join(current_app.config['APP_IMG'], "%s.png" % str(self.id)))
+        return db.Model.remove(self)
     
 
     

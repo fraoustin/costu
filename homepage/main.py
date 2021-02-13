@@ -26,7 +26,6 @@ def view():
 @checkAdmin()
 def update():
     for param in PARAMS:
-        print(param)
         paramregister = ParamApp.get(param)
         paramregister.value = request.form.get(param,'')
         paramregister.save()

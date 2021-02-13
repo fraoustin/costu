@@ -21,7 +21,7 @@
         </div>
         <div class="siimple-content center">{{ titlehome|safe }}</div>
         <div class="tab siimple--content picture-center" id="c1">
-            <img src="/img/{{ bannerhome }}" style="width:80%"/>
+            <img id="banner" src="/img/{{ bannerhome }}"/> <!-- style="max-width:80%;"/> -->
         </div>
         <div class="siimple-content center">
             {{ bodyhome|safe }}
@@ -41,5 +41,12 @@
                 {% endfor %}
             </div>
         </div>
+        <script>
+            img = document.getElementById('banner')
+            var widthIni = img.width;
+            var heightIni = img.height;
+            img.width = document.documentElement.clientWidth * 0.8;
+            img.height = document.documentElement.clientWidth * 0.8 * heightIni / widthIni;
+        </script>
     </body>
 </html>

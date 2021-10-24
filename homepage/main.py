@@ -10,6 +10,8 @@ import random
 from db import db
 from db.models import ParamApp
 
+__version__ = '0.1.0'
+
 PARAMS = ['titlehome', 'bodyhome', 'bannerhome', 'contacthome']
 
 
@@ -51,8 +53,8 @@ class HomePage(Blueprint):
                 db.session.commit()
                 current_app.logger.info("create homepage parameter register %s" % param)
 
-    def register(self, app, options, first_registration=False):
+    def register(self, app, options):
         try:
-            Blueprint.register(self, app, options, first_registration)
+            Blueprint.register(self, app, options)
         except:
             app.logger.error("init homepage on register is failed")

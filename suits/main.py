@@ -12,6 +12,8 @@ from db import db
 from db.models import Suit, Picture
 from db.models import ParamApp
 
+__version__ = '0.1.0'
+
 getBool ={'on': True, 'off': False}
 
 LISTOFVALUE = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'bas', 'haut', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate']
@@ -126,8 +128,8 @@ class Suits(Blueprint):
         self.add_url_rule('/delsuit/<int:id>', 'delete_suit', delete, methods=['POST'])
         self.add_url_rule('/suits', 'suits', list, methods=['GET'])
 
-    def register(self, suit, options, first_registration=False):
+    def register(self, app, options):
         try:
-            Blueprint.register(self, suit, options, first_registration)
+            Blueprint.register(self, app, options)
         except:
-            suit.logger.error("init suit on register is failed")
+            app.logger.error("init suits on register is failed")

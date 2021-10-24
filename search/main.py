@@ -4,6 +4,8 @@ from db import db
 from db.models import Suit, Picture
 from db.models import ParamApp
 
+__version__ = '0.1.0'
+
 LISTOFVALUE = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'dispo', 'haut', 'bas', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate', 'sizepreview']
 
 def onlyFound(suit):
@@ -126,8 +128,8 @@ class Search(Blueprint):
         self.add_url_rule('/search', 'searchsuits', searchsuits, methods=['POST'])
         self.add_url_rule('/search/<int:id>', 'searchsuit', searchsuit, methods=['GET'])
 
-    def register(self, app, options, first_registration=False):
+    def register(self, app, options):
         try:
-            Blueprint.register(self, app, options, first_registration)
+            Blueprint.register(self, app, options)
         except:
             app.logger.error("init search on register is failed")

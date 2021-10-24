@@ -11,6 +11,8 @@ import os
 from db import db
 from db.models import Partner
 
+__version__ = '0.1.0'
+
 getBool ={'on': True, 'off': False}
 
 @login_required
@@ -82,8 +84,8 @@ class PartnerShip(Blueprint):
         self.add_url_rule('/delpartnership/<int:id>', 'delete_partnership', delete, methods=['POST'])
         self.add_url_rule('/partnerships', 'partnerships', list, methods=['GET'])
 
-    def register(self, partnership, options, first_registration=False):
+    def register(self, app, options):
         try:
-            Blueprint.register(self, partnership, options, first_registration)
+            Blueprint.register(self, app, options)
         except:
-            partnership.logger.error("init partnership on register is failed")
+            app.logger.error("init partnership on register is failed")

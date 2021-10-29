@@ -16,6 +16,9 @@ RUN minify -o costu.js costu.js
 
 FROM python:3.8-alpine
 
+RUN apk add build-base
+RUN apk add --no-cache supervisor
+
 RUN mkdir /data
 VOLUME /data
 

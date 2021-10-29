@@ -10,9 +10,9 @@ RUN mkdir /DESKTOP/files
 COPY ./files/ /DESKTOP/files/
 WORKDIR /DESKTOP/files/css
 RUN minify -o icon.css icon.css
-RUN minify -o DESKTOP.css DESKTOP.css
+RUN minify -o costu.css costu.css
 WORKDIR /DESKTOP/files/javascripts
-RUN minify -o DESKTOP.js DESKTOP.js
+RUN minify -o costu.js costu.js
 
 FROM python:3.8-alpine
 
@@ -22,14 +22,14 @@ VOLUME /data
 RUN mkdir /img
 VOLUME /img
 
-RUN mkdir /gbi
-COPY . /gbi/
-RUN rm -rf /gbi/entrypoint.sh
+RUN mkdir /costu
+COPY . /costu/
+RUN rm -rf /costu/entrypoint.sh
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN pip install -r /gbi/REQUIREMENTS.txt
+RUN pip install -r /costu/REQUIREMENTS.txt
 
 ENV DESKTOP_PORT 5000
 ENV DESKTOP_DEBUG false
@@ -40,4 +40,4 @@ ENV DESKTOP_IMG /img
 EXPOSE 5000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["gbi"]
+CMD ["costu"]

@@ -30,7 +30,9 @@
 .icon-camera,
 .icon-image,
 .icon-home,
-.icon-link  {
+.icon-link,
+.icon-star,
+.icon-unstar  {
     font-family: icomoon;
     speak: none;
     font-style: normal;
@@ -119,6 +121,14 @@
 
 .icon-link:before {
     content: "\e9cb"
+}
+
+.icon-star:before {
+    content: "\e9d9"
+}
+
+.icon-unstar:before {
+    content: "\e9d7"
 }
 
 

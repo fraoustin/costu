@@ -93,7 +93,7 @@ def update(id):
         for picture in [elt for elt in request.form if elt.startswith('picture-')]:
             id = picture.split('-')[1]
             if id not in [ elt.id for elt in suit.pictures]:
-                newpicture = Picture(idsuit=suit.id, png=request.form[picture])
+                newpicture = Picture(idsuit=suit.id, png=request.form[picture], star=getBool.get(request.form.get('picturestar-'+id,'off'),False))
                 newpicture.save()
                 print('newpicture')
         flash('Suit "%s" is saved' % suit.id,'success')

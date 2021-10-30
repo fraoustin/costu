@@ -222,6 +222,7 @@ class Picture(db.Model):
     png = db.Column(db.String, nullable=False)
     lastmodifiedby = db.Column(db.String, nullable=True)
     lastmodified = db.Column(db.DateTime, nullable=True)
+    star = db.Column(db.Boolean, nullable=True)
 
     def __setattr__(self, name, value):
         if type(value) == str and len(value) == 0:

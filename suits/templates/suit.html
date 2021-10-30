@@ -206,11 +206,17 @@
                     <video id="sourcevid" class="hidden" onclick='clone()' height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' autoplay="true"></video>
                     <img id="nocamera" src="/css/no-camera.png" width='{{ listofvalue['sizecamera'][0].split('x')[0] }}'/>
                 </div>
-                <div id="delpicture" class="icon-tab icon-del siimple--float-right-middle hidden"></div>
+                <table class="siimple--float-right-middle">
+                    <tr><td style="text-align:center"><div id="delpicture" class="icon-tab icon-del hidden" style="text-align:center"></div></td></tr>
+                    <tr><td style="text-align:center"><div id="starred" class="icon-tab icon-star hidden" style="text-align:center"></div></td></tr>
+                </table>
                 {% for picture in suit.pictures %}
                 <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}" style="height: {{ listofvalue['sizecamera'][0].split('x')[0] }}">
                     <img src="{{ picture.png }}" height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' class="rotating"/>
                     <textarea class="hidden" id="picture-{{ picture.id}}" name="picture-{{ picture.id }}">{{ picture.png }}</textarea>
+                    <div class="hidden">
+                        <input type="checkbox" class="checkbox-star" id="picturestar-{{ picture.id }}" name="picturestar-{{ picture.id }}" {% if picture.star %}checked{% endif %}>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -263,6 +269,15 @@
             tt.setAttribute('id', 'picture-'+id);
             tt.setAttribute('name', 'picture-'+id);
             divcan.appendChild(tt);
+            var divcbstar = document.createElement("div");
+            divcbstar.setAttribute('class', 'hidden');
+            var inputcbstar = document.createElement("input");
+            inputcbstar.setAttribute('class', 'checkbox-star')
+            inputcbstar.setAttribute('type', 'checkbox')
+            inputcbstar.setAttribute('id', 'picturestar-'+id)
+            inputcbstar.setAttribute('name', 'picturestar-'+id)
+            divcbstar.appendChild(inputcbstar);
+            divcan.appendChild(divcbstar);
             document.getElementById('picture-'+id).value=base64;
             document.getElementById('t'+id).click()
             ischanged = true;
@@ -278,11 +293,21 @@
                 items[j].classList.remove('siimple-tabs-item--selected');
             elt.classList.add('siimple-tabs-item--selected');
             if (elt == document.getElementById('tcamera')) {
-                document.getElementById('delpicture').classList.add('hidden')
+                document.getElementById('delpicture').classList.add('hidden');
+                document.getElementById('starred').classList.add('hidden');
             } else {
                 document.getElementById('delpicture').classList.remove('hidden');
-                id = elt.id.substring(1);
+                document.getElementById('starred').classList.remove('hidden');
+                var id = elt.id.substring(1);
                 document.getElementById('delpicture').setAttribute('onclick', "delpicture('"+id+"')");
+                document.getElementById('starred').setAttribute('onclick', "addstar('"+id+"')");
+                if (document.getElementById("picturestar-"+id).hasAttribute('checked')) {
+                    document.getElementById('starred').classList.remove('icon-unstar');
+                    document.getElementById('starred').classList.add('icon-star');
+                } else {
+                    document.getElementById('starred').classList.remove('icon-star');
+                    document.getElementById('starred').classList.add('icon-unstar');
+                };
             }
         };
         
@@ -293,6 +318,15 @@
             divcan.parentNode.removeChild(divcan);
             document.getElementById('tcamera').click()
             ischanged = true;
+        };
+        
+        function addstar(id){
+            var cbstar = document.querySelectorAll(".checkbox-star");
+            for (var j = 0; j < cbstar.length; j++)
+                cbstar[j].removeAttribute("checked");
+            document.getElementById('picturestar-'+id).setAttribute('checked', true);
+            document.getElementById('starred').classList.remove('icon-unstar');
+            document.getElementById('starred').classList.add('icon-star');
         };
 
         function delsuit(){

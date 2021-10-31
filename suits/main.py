@@ -12,7 +12,10 @@ from db import db
 from db.models import Suit, Picture
 from db.models import ParamApp
 
-__version__ = '0.1.1'
+from auth import User, checkAuthorization
+
+
+__version__ = '0.1.2'
 
 getBool ={'on': True, 'off': False}
 
@@ -27,6 +30,7 @@ def getlistofvalue():
 
 
 @login_required
+@checkAuthorization('Suits','voir')
 def view(id):
     try:
         suit = Suit.get(id=id)
@@ -39,11 +43,13 @@ def view(id):
         return redirect(url_for('suits'))
         
 @login_required
+@checkAuthorization('Suits','ajouter modifier')
 def new():
     return render_template('suit.html', suit=Suit(location=current_user.location), listofvalue=getlistofvalue())
 
 
 @login_required
+@checkAuthorization('Suits','ajouter modifier')
 def create():
     suit = Suit(location=request.form['location'],
         portant=request.form['portant'],
@@ -68,6 +74,7 @@ def create():
 
 
 @login_required
+@checkAuthorization('Suits','ajouter modifier')
 def update(id):
     suit = Suit.get(id=id)
     if suit is not None:
@@ -104,6 +111,7 @@ def update(id):
 
 
 @login_required
+@checkAuthorization('Suits','supprimer')
 def delete(id):
     suit = Suit.get(id=id)
     if suit is not None:
@@ -127,6 +135,7 @@ class Suits(Blueprint):
         self.add_url_rule('/suit/<int:id>', 'update_suit', update, methods=['POST'])
         self.add_url_rule('/delsuit/<int:id>', 'delete_suit', delete, methods=['POST'])
         self.add_url_rule('/suits', 'suits', list, methods=['GET'])
+        self.authorization = ['voir', 'ajouter modifier', 'supprimer']
 
     def register(self, app, options):
         try:

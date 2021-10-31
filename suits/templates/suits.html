@@ -2,7 +2,9 @@
 
 {% block navbar %}
 <a href="/dashboard"><div class="siimple-btn icon-close"></div></a>
+{% if current_user.has_authorization('Suits','ajouter modifier') %}
 <a href="/suit"><div class="siimple-btn icon-add"></div></a>
+{% endif %}
 <div class="siimple-btn icon-download no-mobil" onclick="export_table_to_csv('table', 'suits.csv');"></div>
 {% endblock %}
 

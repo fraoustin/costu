@@ -3,11 +3,17 @@
 {% block navbar %}
 <div class="siimple-btn icon-close" onclick="quitsuit()"></div>
 <!--<a href="/suits"><div class="siimple-btn icon-close"></div></a>-->
+{% if current_user.has_authorization('Suits','ajouter modifier') %}
 <div class="siimple-btn icon-save" onclick="window.document.formupdate.submit()"></div>
+{% endif %}
 {% if suit.id != None %}
+{% if current_user.has_authorization('Suits','supprimer') %}
 <div class="siimple-btn icon-del" onclick="delsuit()"></div>
 {% endif %}
+{% endif %}
+{% if current_user.has_authorization('Suits','ajouter modifier') %}
 <a href="/suit"><div class="siimple-btn icon-add no-mobil"></div></a>
+{% endif %}
 {% endblock %}
 
 {% block headinit %}

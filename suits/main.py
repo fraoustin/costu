@@ -12,7 +12,7 @@ from db import db
 from db.models import Suit, Picture
 from db.models import ParamApp
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 getBool ={'on': True, 'off': False}
 

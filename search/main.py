@@ -4,7 +4,7 @@ from db import db
 from db.models import Suit, Picture
 from db.models import ParamApp
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 LISTOFVALUE = ['location', 'epoque', 'gender', 'size', 'color', 'state', 'dispo', 'haut', 'bas', 'robe', 'ensemble', 'accessoire', 'sizecamera', 'rotate', 'sizepreview']
 

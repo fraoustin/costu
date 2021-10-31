@@ -195,8 +195,7 @@
             </div>
             <div id="pictures" class="siimple-grid-col siimple-grid-col--6 siimple-grid-col--lg-12">
                 <div id="tabs" class="siimple-tabs siimple-tabs--boxed" >
-                    <!-- <div class="siimple-tabs-item icon-image icon-tab"></div>
-                    <div class="siimple-tabs-item icon-image icon-tab"></div> -->
+                    <div id="addpicture" class="siimple-tabs-item icon-tab icon-upload" onclick="document.getElementById('inputuploadimage').click()"></div>
                     <div id="tcamera" class="siimple-tabs-item icon-camera icon-tab siimple-tabs-item--selected" onclick="viewtab('ccamera', this)"></div>
                     {% for picture in suit.pictures %}
                     <div class="siimple-tabs-item icon-image icon-tab" id="t{{ picture.id }}" onclick="viewtab('c{{ picture.id }}', this)"></div>
@@ -212,10 +211,15 @@
                 </table>
                 {% for picture in suit.pictures %}
                 <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}" style="height: {{ listofvalue['sizecamera'][0].split('x')[0] }}">
+                    {% if picture.rotating %}
                     <img src="{{ picture.png }}" height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' class="rotating"/>
+                    {% else %}
+                    <img src="{{ picture.png }}" width='{{ listofvalue['sizecamera'][0].split('x')[1] }}' height='{{ listofvalue['sizecamera'][0].split('x')[0] }}'/>
+                    {% endif %}
                     <textarea class="hidden" id="picture-{{ picture.id}}" name="picture-{{ picture.id }}">{{ picture.png }}</textarea>
                     <div class="hidden">
                         <input type="checkbox" class="checkbox-star" id="picturestar-{{ picture.id }}" name="picturestar-{{ picture.id }}" {% if picture.star %}checked{% endif %}>
+                        <input type="checkbox" class="checkbox-rotating" id="picturerotating-{{ picture.id }}" name="picturerotating-{{ picture.id }}" {% if picture.rotating %}checked{% endif %}>
                     </div>
                 </div>
                 {% endfor %}
@@ -225,6 +229,7 @@
     </form>
     <form action="/delsuit/{{ suit.id }}"  method="POST" name="formdel">
     </form>
+    <input class="hidden" id="inputuploadimage" type="file" accept="image/*" onchange="uploadimage(event)">
     <script type="text/javascript">
         var ischanged = false;
 
@@ -277,6 +282,13 @@
             inputcbstar.setAttribute('id', 'picturestar-'+id)
             inputcbstar.setAttribute('name', 'picturestar-'+id)
             divcbstar.appendChild(inputcbstar);
+            var inputcbrotating = document.createElement("input");
+            inputcbrotating.setAttribute('class', 'checkbox-rotating')
+            inputcbrotating.setAttribute('type', 'checkbox')
+            inputcbrotating.setAttribute('id', 'picturerotating-'+id)
+            inputcbrotating.setAttribute('name', 'picturerotating-'+id)
+            inputcbrotating.setAttribute('checked', true);
+            divcbstar.appendChild(inputcbrotating);
             divcan.appendChild(divcbstar);
             document.getElementById('picture-'+id).value=base64;
             document.getElementById('t'+id).click()
@@ -334,6 +346,54 @@
             if( retVal == true ) {
                 window.document.formdel.submit()
             };
+        }
+
+        function uploadimage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var data = reader.result;
+                var tab = document.createElement("div");
+                tab.setAttribute('class', 'siimple-tabs-item icon-image icon-tab');
+                var id = Date.now();
+                tab.setAttribute('id', 't'+id);
+                tab.setAttribute('onclick', "viewtab('c"+id+"', this)");
+                document.getElementById('tabs').appendChild(tab);
+                var divcan = document.createElement("div");
+                divcan.setAttribute('class', 'tab siimple--content picture-center hidden');
+                divcan.setAttribute('id', 'c'+id);
+                var can = document.createElement("img");
+                can.setAttribute('width', '{{ listofvalue['sizecamera'][0].split('x')[1] }}px');
+                can.setAttribute('height', '{{ listofvalue['sizecamera'][0].split('x')[0] }}px');
+                divcan.appendChild(can);
+                document.getElementById('pictures').appendChild(divcan);
+                var tt = document.createElement("textarea");
+                tt.setAttribute('class', 'hidden');
+                tt.setAttribute('id', 'picture-'+id);
+                tt.setAttribute('name', 'picture-'+id);
+                divcan.appendChild(tt);
+                var divcbstar = document.createElement("div");
+                divcbstar.setAttribute('class', 'hidden');
+                var inputcbstar = document.createElement("input");
+                inputcbstar.setAttribute('class', 'checkbox-star')
+                inputcbstar.setAttribute('type', 'checkbox')
+                inputcbstar.setAttribute('id', 'picturestar-'+id)
+                inputcbstar.setAttribute('name', 'picturestar-'+id)
+                divcbstar.appendChild(inputcbstar);
+                var inputcbrotating = document.createElement("input");
+                inputcbrotating.setAttribute('class', 'checkbox-rotating')
+                inputcbrotating.setAttribute('type', 'checkbox')
+                inputcbrotating.setAttribute('id', 'picturerotating-'+id)
+                inputcbrotating.setAttribute('name', 'picturerotating-'+id)
+                divcbstar.appendChild(inputcbrotating);
+                divcan.appendChild(divcbstar);
+                document.getElementById('picture-'+id).value=data;
+                document.getElementById('t'+id).click()
+                ischanged = true;
+
+                var output = document.getElementById('c'+id).getElementsByTagName('img')[0]
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 {% endblock %}

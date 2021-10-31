@@ -61,7 +61,7 @@ def create():
         accessoire=request.form['accessoire'])
     suit.save()
     for picture in [elt for elt in request.form if elt.startswith('picture-')]:
-        picture = Picture(idsuit=suit.id, png=request.form[picture])
+        picture = Picture(idsuit=suit.id, png=request.form[picture], star=getBool.get(request.form.get('picturestar-'+id,'off'),False), rotating=getBool.get(request.form.get('picturerotating-'+id,'off'),False))
         picture.save()
     flash('Suit "%s" is created' % suit.id, 'success')
     return redirect(url_for('suit.view_suit', id=suit.id))
@@ -93,7 +93,7 @@ def update(id):
         for picture in [elt for elt in request.form if elt.startswith('picture-')]:
             id = picture.split('-')[1]
             if id not in [ elt.id for elt in suit.pictures]:
-                newpicture = Picture(idsuit=suit.id, png=request.form[picture], star=getBool.get(request.form.get('picturestar-'+id,'off'),False))
+                newpicture = Picture(idsuit=suit.id, png=request.form[picture], star=getBool.get(request.form.get('picturestar-'+id,'off'),False), rotating=getBool.get(request.form.get('picturerotating-'+id,'off'),False))
                 newpicture.save()
                 print('newpicture')
         flash('Suit "%s" is saved' % suit.id,'success')

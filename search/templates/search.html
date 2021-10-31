@@ -215,7 +215,11 @@
                         {% if suit.pictures|length == 0 %}
                             <img id="nocamera" src="/css/no-camera.png" height='{{ listofvalue['sizepreview'][0].split('x')[1] }}' width='{{ listofvalue['sizepreview'][0].split('x')[0] }}'/>
                         {% else %}
-                            <img src="{{ suit.pictures[0].png }}" height='{{ listofvalue['sizepreview'][0].split('x')[1] }}' width='{{ listofvalue['sizepreview'][0].split('x')[0] }}' class="rotatingpreview"></img>
+                            {% if suit.bestpicture.rotating %}
+                                <img src="{{ suit.bestpicture.png }}" height='{{ listofvalue['sizepreview'][0].split('x')[1] }}' width='{{ listofvalue['sizepreview'][0].split('x')[0] }}' class="rotatingpreview"></img>
+                            {% else %}
+                                <img src="{{ suit.bestpicture.png }}" width='{{ listofvalue['sizepreview'][0].split('x')[1] }}' height='{{ listofvalue['sizepreview'][0].split('x')[0] }}' ></img>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="siimple-card-footer">

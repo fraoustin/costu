@@ -210,6 +210,13 @@ class Suit(db.Model):
     def idformat(self):
         fmt = '{:0>' + ParamApp.getValue('formatid', '4') + '}'
         return fmt.format(self.id)
+    
+    @property
+    def bestpicture(self):
+        bstpics = Picture.query.filter_by(idsuit=self.id, star=True).all()
+        if len(bstpics) > 0:
+            return bstpics[0]
+        return Picture.query.filter_by(idsuit=self.id).first()
             
 
 
@@ -223,6 +230,7 @@ class Picture(db.Model):
     lastmodifiedby = db.Column(db.String, nullable=True)
     lastmodified = db.Column(db.DateTime, nullable=True)
     star = db.Column(db.Boolean, nullable=True)
+    rotating = db.Column(db.Boolean, nullable=True)
 
     def __setattr__(self, name, value):
         if type(value) == str and len(value) == 0:

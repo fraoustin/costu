@@ -85,7 +85,11 @@
                     </div>
                     {% for picture in suit.pictures %}
                     <div class="tab siimple--content picture-center hidden" id="c{{ picture.id }}">
+                        {% if picture.rotating %}
                         <img src="{{ picture.png }}" height='{{ listofvalue['sizecamera'][0].split('x')[1] }}' width='{{ listofvalue['sizecamera'][0].split('x')[0] }}' class="rotating"/>
+                        {% else %}
+                        <img src="{{ picture.png }}" width='{{ listofvalue['sizecamera'][0].split('x')[1] }}' height='{{ listofvalue['sizecamera'][0].split('x')[0] }}'/>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>

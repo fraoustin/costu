@@ -47,13 +47,6 @@
         <div class="tab siimple--content picture-center" id="c1">
             <img id="banner" src="/img/{{ bannerhome }}"/>
         </div>
-        <script>
-            img = document.getElementById('banner')
-            var widthIni = img.width;
-            var heightIni = img.height;
-            img.width = document.documentElement.clientWidth * 0.8;
-            img.height = document.documentElement.clientWidth * 0.8 * heightIni / widthIni;
-        </script>
         <div class="siimple-content center">            
             <form action="/search"  method="POST" name="formsearch" enctype=multipart/form-data {% if suits|length > 0 %} class="hidden" {% endif %}>
                 <table>
@@ -239,6 +232,13 @@
         </div>
         <div {% if suits|length > 0 %} class="hidden" {% endif %} style="text-align: center;"> 0 costume selectionné </div>
         <div class="siimple-modal siimple-modal--large" id="modal" style="display:none;"></div>
+        <script>
+            img = document.getElementById('banner')
+            var widthIni = img.width;
+            var heightIni = img.height;
+            img.width = document.documentElement.clientWidth * 0.8;
+            img.height = document.documentElement.clientWidth * 0.8 * heightIni / widthIni;
+        </script>
         <script>
             function viewtab(tab, elt){
                 var tabs = document.querySelectorAll(".tab");
